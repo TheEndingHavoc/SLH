@@ -494,12 +494,8 @@ function hopserver()local v0=game.PlaceId;local v1={};local v2="";local v3=os.da
                         if Distance <= 30 then
                             if _G.AutoAssistSkill == true and tonumber(game:GetService("Players").LocalPlayer.PlayerGui.UniversalGui.UniversalCenterUIFrame.SlotsHolder.SkillAssist1.SkillName.Text) == nil or tonumber(game:GetService("Players").LocalPlayer.PlayerGui.UniversalGui.UniversalCenterUIFrame.SlotsHolder.SkillAssist1.SkillName.Text) == 0 then
                                 game:GetService("ReplicatedStorage").RemoteEvents.MainRemoteEvent:FireServer("UseAssistSkill",{["hrpCFrame"] = CFrame.new(getClosestMob().HumanoidRootPart.Position)},1)
-                            elseif _G.AutoAssistSkill == true and tonumber(game:GetService("Players").LocalPlayer.PlayerGui.UniversalGui.UniversalCenterUIFrame.SlotsHolder.FruitSKill1.SkillName.Text) == nil or tonumber(game:GetService("Players").LocalPlayer.PlayerGui.UniversalGui.UniversalCenterUIFrame.SlotsHolder.FruitSKill1.SkillName.Text) == 0 then
-                                game:GetService("ReplicatedStorage").RemoteEvents.MainRemoteEvent:FireServer("UseFruitSkill",{["hrpCFrame"] = CFrame.new(getClosestMob().HumanoidRootPart.Position)},1)
                             elseif _G.AutoAssistSkill == true and tonumber(game:GetService("Players").LocalPlayer.PlayerGui.UniversalGui.UniversalCenterUIFrame.SlotsHolder.SkillAssist2.SkillName.Text) == nil or tonumber(game:GetService("Players").LocalPlayer.PlayerGui.UniversalGui.UniversalCenterUIFrame.SlotsHolder.SkillAssist2.SkillName.Text) == 0 then
                                 game:GetService("ReplicatedStorage").RemoteEvents.MainRemoteEvent:FireServer("UseAssistSkill",{["hrpCFrame"] = CFrame.new(getClosestMob().HumanoidRootPart.Position)},2)
-                            elseif _G.AutoAssistSkill == true and tonumber(game:GetService("Players").LocalPlayer.PlayerGui.UniversalGui.UniversalCenterUIFrame.SlotsHolder.FruitSKill2.SkillName.Text) == nil or tonumber(game:GetService("Players").LocalPlayer.PlayerGui.UniversalGui.UniversalCenterUIFrame.SlotsHolder.FruitSKill2.SkillName.Text) == 0 then
-                                game:GetService("ReplicatedStorage").RemoteEvents.MainRemoteEvent:FireServer("UseFruitSkill",{["hrpCFrame"] = CFrame.new(getClosestMob().HumanoidRootPart.Position)},1)
                             end
                         end
                     end
@@ -1510,4 +1506,23 @@ function hopserver()local v0=game.PlaceId;local v1={};local v2="";local v3=os.da
     		library:ConfigSystem("AnimeDimensions"):Save()
     	end)
 	end
+end
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RemoteEvents = ReplicatedStorage:WaitForChild("RemoteEvents")
+local MainRemoteEvent = RemoteEvents:WaitForChild("MainRemoteEvent")
+
+local args = {
+    [1] = "UseFruitSkill",
+    [2] = {
+        ["hrpCFrame"] = CFrame.new(-3.9297475814819336, 12.459174156188965, -122.36310577392578, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+    },
+    [3] = 1
+}
+
+while true do
+    -- Envia a solicitação ao servidor
+    MainRemoteEvent:FireServer(unpack(args))
+    
+    -- Aguarda 1 segundo antes de enviar a próxima solicitação
+    wait(1)
 end
